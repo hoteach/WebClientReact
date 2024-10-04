@@ -19,6 +19,9 @@ export default function Layout() {
   function handleRoadmap() {
     navigate(`roadmap`);
   }
+  function handleSteps() {
+    navigate(`steps`);
+  }
 
   return (
     <div className="bg-white min-h-screen flex text-gray-800">
@@ -39,6 +42,10 @@ export default function Layout() {
                       <button onClick={handleLanding} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 transition-all duration-200 group">
                           <FaFire className="mr-3 text-lg" />
                           <span>Landing</span>
+                      </button>
+                      <button onClick={handleSteps} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 transition-all duration-200 group">
+                          <FaRocket className="mr-3 text-lg" />
+                          <span>Steps</span>
                       </button>
                   </li>
               </ul>

@@ -1,4 +1,5 @@
 import React from 'react';
+import FlaimyHi from '../../assets/flaimy/FlaimyHi.png';
 
 const Dashboard = () => {
     return (
@@ -44,7 +45,10 @@ const Dashboard = () => {
                         <p className="font-semibold text-gray-800">Your preferences help us tailor the perfect experience for you!</p>
                     </div>
                 </div>
-            </div>
+            </div>{/*
+            <div className="absolute bottom-1 pl-4">
+                <img src={FlaimyHi} alt="Flaimy" className="max-w-56" />
+            </div>*/}
         </div>
     );
 };

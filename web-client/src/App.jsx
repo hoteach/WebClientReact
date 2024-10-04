@@ -5,7 +5,8 @@ import Funnel from "./pages/funnel/Funnel";
 import Landing from "./pages/landing/Landing";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ActivationLayout from "./pages/layout/ActivationLaout";
-import Roadmap from "./pages/roadmap/Roadmap";
+import Roadmap from "./pages/resources/Roadmap";
+import Steps from "./pages/resources/CompletionSteps";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
+      { path: "steps", element: <Steps /> },
       { path: "roadmap", element: <Roadmap /> },
     ]
   },

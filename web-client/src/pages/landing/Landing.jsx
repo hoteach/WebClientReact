@@ -1,6 +1,7 @@
 import { FaGoogle, FaFire, FaRocket } from 'react-icons/fa';
 import logo from '../../assets/logos/Ho.png';
 import { useNavigate } from "react-router-dom";
+import FlaimyRunning from '../../assets/flaimy/FlaimyRunning.png'
 
 export default function Landing() {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function Landing() {
     }
 
     return (
-        <div className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800">
+        <div className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 relative">
             <div className="bg-white rounded-3xl w-[32rem] flex flex-col justify-center items-center border-2 p-8">
                 <img src={logo} alt="Logo" className="w-56 mb-8" />
                 <h2 className="text-3xl font-bold mb-6 text-center text-black bg-clip-text">Activate your account</h2>
