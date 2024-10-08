@@ -5,8 +5,8 @@ const Roadmap = () => {
     return (
         <div className="bg-white flex items-start flex-row justify-center">
             <div className="w-1/3 p-8 flex flex-col justify-center items-center">
-                <h2 className="text-3xl font-bold mb-4"><span className='text-maincol bg-[#ff3300] rounded-2xl px-2'>HoT</span> Points</h2>
-                <p className="mb-4">Track your progress through these key milestones in your programming journey. Each point represents a significant step in your learning path.</p>
+                <h2 className="text-3xl font-bold mb-4"><span className='text-white bg-[#ff3300] rounded-2xl px-2'>HoT</span> Points</h2>
+                <p className="mb-4">Follow this roadmap to build a full-stack .NET and React application, from backend API to frontend, and deploy it on Azure. Each milestone represents a crucial step in your journey to becoming a full-stack developer.</p>
                 <img src={roadmapImage} alt="Roadmap" className="w-96" />
             </div>
             <div className="w-2/3 max-w-xl p-8">
@@ -30,24 +30,26 @@ const Roadmap = () => {
                                     <div className="min-w-0 flex-1 py-0">
                                         <div className="text-md text-gray-500">
                                             <div>
-                                                <a href="#" className="font-medium text-gray-900 mr-2">Learn Python Basics</a>
+                                                <a href="#" className="font-medium text-gray-900 mr-2">Build .NET Core API</a>
                                                 <a href="#"
                                                 className="my-0.5 relative inline-flex items-center bg-white rounded-full border border-gray-300 px-3 py-0.5 text-sm">
                                                     <div className="absolute flex-shrink-0 flex items-center justify-center">
-                                                        <span className="h-1.5 w-1.5 rounded-full bg-green-500" aria-hidden="true"></span>
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-yellow-500" aria-hidden="true"></span>
                                                     </div>
-                                                    <div className="ml-3.5 font-medium text-gray-900">Completed</div>
+                                                    <div className="ml-3.5 font-medium text-gray-900">In Progress</div>
                                                 </a>
                                             </div>
                                             <span className="whitespace-nowrap text-sm">Milestone 1</span>
                                         </div>
                                         <div className="mt-2 text-gray-700">
                                             <p>
-                                                - Master basic Python syntax and data types
+                                                - Set up a .NET Core project
                                                 <br />
-                                                - Understand control structures and loops
+                                                - Implement RESTful API endpoints
                                                 <br />
-                                                - Learn about functions and modules
+                                                - Integrate Entity Framework for database operations
+                                                <br />
+                                                - Implement authentication and authorization
                                             </p>
                                         </div>
                                     </div>
@@ -72,25 +74,28 @@ const Roadmap = () => {
                                     <div className="min-w-0 flex-1 py-0">
                                         <div className="text-md text-gray-500">
                                             <div>
-                                                <a href="#" className="font-medium text-gray-900 mr-2">Build a Web Application</a>
-
+                                                <a href="#" className="font-medium text-gray-900 mr-2">Develop React Frontend</a>
                                                 <a href="#"
                                                 className="my-0.5 relative inline-flex items-center bg-white rounded-full border border-gray-300 px-3 py-0.5 text-sm">
                                                     <div className="absolute flex-shrink-0 flex items-center justify-center">
-                                                        <span className="h-1.5 w-1.5 rounded-full bg-yellow-500" aria-hidden="true"></span>
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-gray-300" aria-hidden="true"></span>
                                                     </div>
-                                                    <div className="ml-3.5 font-medium text-gray-900">Pending</div>
+                                                    <div className="ml-3.5 font-medium text-gray-900">Not Started</div>
                                                 </a>
                                             </div>
                                             <span className="whitespace-nowrap text-sm">Milestone 2</span>
                                         </div>
                                         <div className="mt-2 text-gray-700">
                                             <p>
-                                                - Learn HTML, CSS, and JavaScript basics
+                                                - Set up a React project with Create React App
                                                 <br />
-                                                - Understand server-side programming with Node.js
+                                                - Implement component-based UI
                                                 <br />
-                                                - Create a simple full-stack application
+                                                - Use React Router for navigation
+                                                <br />
+                                                - Integrate state management with Redux or Context API
+                                                <br />
+                                                - Connect frontend to .NET Core API
                                             </p>
                                         </div>
                                     </div>
@@ -115,17 +120,28 @@ const Roadmap = () => {
                                     <div className="min-w-0 flex-1 py-0">
                                         <div className="text-md text-gray-500">
                                             <div>
-                                                <a href="#" className="font-medium text-gray-900 mr-2">Master Data Structures</a>
+                                                <a href="#" className="font-medium text-gray-900 mr-2">Azure Deployment</a>
+                                                <a href="#"
+                                                className="my-0.5 relative inline-flex items-center bg-white rounded-full border border-gray-300 px-3 py-0.5 text-sm">
+                                                    <div className="absolute flex-shrink-0 flex items-center justify-center">
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-gray-300" aria-hidden="true"></span>
+                                                    </div>
+                                                    <div className="ml-3.5 font-medium text-gray-900">Not Started</div>
+                                                </a>
                                             </div>
                                             <span className="whitespace-nowrap text-sm">Milestone 3</span>
                                         </div>
                                         <div className="mt-2 text-gray-700">
                                             <p>
-                                                - Study arrays, linked lists, and hash tables
+                                                - Set up Azure account and resources
                                                 <br />
-                                                - Understand trees and graphs
+                                                - Deploy .NET Core API to Azure App Service
                                                 <br />
-                                                - Implement common algorithms using these structures
+                                                - Set up Azure SQL Database
+                                                <br />
+                                                - Deploy React frontend to Azure Static Web Apps
+                                                <br />
+                                                - Configure CI/CD pipelines with Azure DevOps
                                             </p>
                                         </div>
                                     </div>

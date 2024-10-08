@@ -31,26 +31,26 @@ export default function Layout() {
           <nav className="flex-grow">
               <ul className="space-y-3">
                   <li>
-                      <button onClick={handleRoadmap} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 transition-all duration-200 group">
+                      <button onClick={handleRoadmap} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 w-full transition-all duration-200 group">
                           <FaUser className="mr-3 text-lg" />
                           <span>Roadmap</span>
                       </button>
-                      <button onClick={handleDashboard} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 transition-all duration-200 group">
+                      <button onClick={handleDashboard} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 w-full transition-all duration-200 group">
                           <FaHome className="mr-3 text-lg" />
                           <span>Dashboard</span>
                       </button>
-                      <button onClick={handleLanding} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 transition-all duration-200 group">
+                      <button onClick={handleLanding} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 w-full transition-all duration-200 group">
                           <FaFire className="mr-3 text-lg" />
                           <span>Landing</span>
                       </button>
-                      <button onClick={handleSteps} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 transition-all duration-200 group">
+                      <button onClick={handleSteps} className="flex cursor-pointer items-center text-gray-700 hover:text-black border-2 border-transparent hover:border-gray-200 rounded-xl p-3 w-full transition-all duration-200 group">
                           <FaRocket className="mr-3 text-lg" />
                           <span>Steps</span>
                       </button>
                   </li>
               </ul>
           </nav>
-          <button className="mt-auto flex items-center text-gray-700 border-2 border-transparent hover:border-maincol hover:text-black rounded-xl p-3 transition-all duration-200 w-full group">
+          <button className="mt-auto flex items-center text-gray-700 border-2 border-transparent hover:border-gray-200 hover:text-black rounded-xl p-3 transition-all duration-200 w-full group">
               <FaSignOutAlt className="mr-3 text-lg" />
               <span>Logout</span>
           </button>

@@ -10,6 +10,7 @@ export default {
   theme: {
     colors: {
       maincol: "#ffe505",
+      secondary: "#ff3300",
       ...colors,
     },
     extend: {
