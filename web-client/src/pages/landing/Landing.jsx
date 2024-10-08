@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { FaGoogle, FaFire, FaRocket } from 'react-icons/fa';
 import logo from '../../assets/logos/Ho.png';
 import { useGoogleLogin } from '@react-oauth/google';
+import { useAuth } from '../../pages/AuthContext';
 
 export default function Landing() {
     const navigate = useNavigate();
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const { login } = useAuth();
     
     useEffect(() => {
         /* global google */
@@ -22,6 +24,7 @@ export default function Landing() {
     // Custom login handler
     const handleGoogleLogin = (response) => {
         console.log('Login Success:', response);
+        login();
         // Perform your login logic here (e.g., send the token to your backend)
         navigate('/dashboard');
     };
@@ -29,7 +32,7 @@ export default function Landing() {
     const handleGoogleClick = useGoogleLogin({
         onSuccess: tokenResponse => {
             console.log(tokenResponse);
-            
+            login();
             navigate('/dashboard');
         },
         flow: 'auth-code',
