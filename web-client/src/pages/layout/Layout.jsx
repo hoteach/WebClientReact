@@ -2,9 +2,12 @@ import { Outlet } from "react-router-dom";
 import { FaGoogle, FaFire, FaRocket, FaHome, FaUser, FaCog, FaSignOutAlt, FaBell } from 'react-icons/fa';
 import logo from '../../assets/logos/Ho.png';
 import { useNavigate } from "react-router-dom";
+import { googleLogout } from "@react-oauth/google";
+import { AuthProvider } from "../AuthContext";
 
 export default function Layout() {
   const navigate = useNavigate();
+
 
   function handleDashboard() {
     console.log(`dashboard`);
@@ -21,6 +24,10 @@ export default function Layout() {
   }
   function handleSteps() {
     navigate(`steps`);
+  }
+  function logoutFunc() {
+    AuthProvider.logout();
+    googleLogout();
   }
 
   return (
@@ -50,7 +57,7 @@ export default function Layout() {
                   </li>
               </ul>
           </nav>
-          <button className="mt-auto flex items-center text-gray-700 border-2 border-transparent hover:border-gray-200 hover:text-black rounded-xl p-3 transition-all duration-200 w-full group">
+          <button onClick={logoutFunc} className="mt-auto flex items-center text-gray-700 border-2 border-transparent hover:border-gray-200 hover:text-black rounded-xl p-3 transition-all duration-200 w-full group">
               <FaSignOutAlt className="mr-3 text-lg" />
               <span>Logout</span>
           </button>

@@ -3,40 +3,44 @@ import { useNavigate } from "react-router-dom";
 import { FaGoogle, FaFire, FaRocket } from 'react-icons/fa';
 import logo from '../../assets/logos/Ho.png';
 import { useGoogleLogin } from '@react-oauth/google';
-import { useAuth } from '../../pages/AuthContext';
+import { useAuth } from '../AuthContext';
 
-export default function Landing() {
+export default function ActivationPage() {
     const navigate = useNavigate();
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const { login } = useAuth();
-    
-    useEffect(() => {
-        /* global google */
-        window.google.accounts.id.initialize({
-            client_id: clientId, // Replace with your Google client ID
-            callback: handleGoogleLogin
-        });
-
-        // Automatically show the Google login prompt on page enter
-        window.google.accounts.id.prompt();
-    }, []);
-
-    // Custom login handler
-    const handleGoogleLogin = (response) => {
-        console.log('Login Success:', response);
-        login();
-        // Perform your login logic here (e.g., send the token to your backend)
-        navigate('/dashboard');
-    };
 
     const handleGoogleClick = useGoogleLogin({
-        onSuccess: tokenResponse => {
+        onSuccess: async(tokenResponse) => {
             console.log(tokenResponse);
             login();
+
+            const queryParams = window.location.href;
+            const paymentIntentId = queryParams.match(/\?(.+)/);
+
+            await activateAccount("asd", paymentIntentId[1]);
             navigate('/dashboard');
         },
         flow: 'auth-code',
     });
+
+    const activateAccount = async (googleId, paymentIntentId) => {
+        try {
+            const response = await fetch('https://hoteachapi.azurewebsites.net/api/ActivateUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ googleId, paymentIntentId }),
+            });
+
+            const result = await response.json();
+            console.log('Activation result:', result);
+        } catch (error) {
+            console.error('Error activating account:', error);
+        }
+    };
+
 
     return (
         <div className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 relative">
