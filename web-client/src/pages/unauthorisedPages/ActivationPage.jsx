@@ -3,25 +3,45 @@ import { useNavigate } from "react-router-dom";
 import { FaGoogle, FaFire, FaRocket } from 'react-icons/fa';
 import logo from '../../assets/logos/Ho.png';
 import { useGoogleLogin } from '@react-oauth/google';
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../contextAndRoute/AuthContext';
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function ActivationPage() {
+    const [ user, setUser ] = useState([]);
+    const [ profile, setProfile ] = useState([]);
     const navigate = useNavigate();
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const { login } = useAuth();
 
-    const handleGoogleClick = useGoogleLogin({
-        onSuccess: async(tokenResponse) => {
-            console.log(tokenResponse);
-            login();
+    useEffect(
+        () => {
+            if (user) {
+                axios
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${user.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                    .then((res) => {
+                        setProfile(res.data);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        },
+        [ user ]
+    );
+
+    const loginGoogle = useGoogleLogin({
+        onSuccess: async(codeResponse) => {
+            setUser(codeResponse);
 
             const queryParams = window.location.href;
             const paymentIntentId = queryParams.match(/\?(.+)/);
-
-            await activateAccount("asd", paymentIntentId[1]);
-            navigate('/dashboard');
+            console.log(profile.id);
+            //await activateAccount(profile.id, paymentIntentId[1]);
         },
-        flow: 'auth-code',
+        onError: (error) => console.log('Login Failed:', error)
     });
 
     const activateAccount = async (googleId, paymentIntentId) => {
@@ -33,15 +53,15 @@ export default function ActivationPage() {
                 },
                 body: JSON.stringify({ googleId, paymentIntentId }),
             });
-
+            
             const result = await response.json();
+            login();
             console.log('Activation result:', result);
         } catch (error) {
             console.error('Error activating account:', error);
         }
     };
-
-
+    
     return (
         <div className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 relative">
             <div className="bg-white rounded-3xl w-[32rem] flex flex-col justify-center items-center border-2 p-8">
@@ -49,9 +69,9 @@ export default function ActivationPage() {
                 <h2 className="text-3xl font-bold mb-6 text-center text-black bg-clip-text">Activate your account</h2>
                 <p className="text-center text-gray-600 mb-8">Join us and ignite your journey to success!</p>
 
-                <button onClick={handleGoogleClick} className="bg-maincol border-2 border-black text-black px-6 py-3 rounded-xl font-semibold shadow-md hover:from-orange-600 hover:to-red-600 transition duration-300 flex items-center justify-center w-full">
+                <button onClick={loginGoogle} className="bg-maincol border-2 border-black text-black px-6 py-3 rounded-xl font-semibold shadow-md hover:from-orange-600 hover:to-red-600 transition duration-300 flex items-center justify-center w-full">
                     <FaGoogle className="mr-2" />
-                    Login with Google
+                    Activate with Google
                 </button>
 
                 <div className="mt-12 flex justify-center space-x-8">

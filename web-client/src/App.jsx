@@ -5,10 +5,11 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Roadmap from "./pages/resources/Roadmap";
 import Steps from "./pages/resources/CompletionSteps";
 import ActivationLayout from "./pages/layout/ActivationLaout";
-import { ProtectedRoute } from "./pages/ProtectedRoute";
-import { UnauthenticatedRoute } from "./pages/UnauthenticatedRoute";
-import { AuthProvider } from "./pages/AuthContext";
-import ActivationPage from "./pages/landing/ActivationPage";
+import { ProtectedRoute } from "./pages/contextAndRoute/ProtectedRoute";
+import { UnauthenticatedRoute } from "./pages/contextAndRoute/UnauthenticatedRoute";
+import ActivationPage from "./pages/unauthorisedPages/ActivationPage";
+import Login from "./pages/unauthorisedPages/Login";
+import { AuthProvider } from "./pages/contextAndRoute/AuthContext";
 
 const router = createBrowserRouter([
     {
@@ -57,10 +58,17 @@ const router = createBrowserRouter([
                     </UnauthenticatedRoute>
             },
             { 
-                path: "buy", 
+                path: "funnel", 
                 element: 
                     <UnauthenticatedRoute>
                     <Funnel />
+                    </UnauthenticatedRoute>
+            },
+            { 
+                path: "login", 
+                element: 
+                    <UnauthenticatedRoute>
+                    <Login />
                     </UnauthenticatedRoute>
             },
         ],
