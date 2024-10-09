@@ -1,39 +1,64 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FaGoogle, FaFire, FaRocket } from 'react-icons/fa';
 import logo from '../../assets/logos/Ho.png';
-import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import { useAuth } from '../contextAndRoute/AuthContext';
+import axios from 'axios';
 
 export default function Login() {
+    const [user, setUser] = useState([]);
+    const [profile, setProfile] = useState([]);
     const navigate = useNavigate();
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const { login } = useAuth();
+    const { login, logout } = useAuth();
 
-    const handleGoogleClick = useGoogleLogin({
-        onSuccess: async(tokenResponse) => {
-            console.log(tokenResponse);
-            login();
-            await fetchUser("asd");
-            navigate('/dashboard');
+    useEffect(
+        () => {
+            if (user) {
+                axios
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${user.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                    .then(async (res) => {
+                        setProfile(res.data);
+
+                        return axios.post('https://hoteachapi.azurewebsites.net/api/GetUserData', { googleId: res.data.email });
+                    })
+                    .then(apiResponse => {
+                        const userData = apiResponse.data;
+                        const regex = /"IsActivated"\s*:\s*(true|false)/;
+                        const match = userData.match(regex);
+
+                        let isActivated = null;
+                        if (match && match[1]) {
+                            isActivated = match[1] === 'true';
+                        }
+
+                        if (isActivated) {
+                            login();
+                            navigate("/dashboard");
+                        } else {
+                            logout();
+                            setUser([]);
+                            googleLogout();
+                            navigate("/funnel");
+                        }
+                    })
+                    .catch((err) => console.log(err));
+            }
         },
-        flow: 'auth-code',
-    });
+        [user, login, logout, navigate]
+    );
 
-    const fetchUser = async (googleId) => {
-        try {
-            const response = await fetch('https://hoteachapi.azurewebsites.net/api/GetUserData', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ googleId, paymentIntentId }),
-            });
-            const result = await response.json();
-        } catch (error) {
-            console.error('Error with account:', error);
-        }
-    };
+    const loginGoogle = useGoogleLogin({
+        onSuccess: async (codeResponse) => {
+            setUser(codeResponse);
+        },
+        onError: (error) => console.log('Login Failed:', error)
+    });
 
     return (
         <div className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 relative">
@@ -42,7 +67,7 @@ export default function Login() {
                 <h2 className="text-3xl font-bold mb-6 text-center text-black bg-clip-text">Access your account</h2>
                 <p className="text-center text-gray-600 mb-8">Ignite your journey to success!</p>
 
-                <button onClick={handleGoogleClick} className="bg-maincol border-2 border-black text-black px-6 py-3 rounded-xl font-semibold shadow-md hover:from-orange-600 hover:to-red-600 transition duration-300 flex items-center justify-center w-full">
+                <button onClick={loginGoogle} className="bg-maincol border-2 border-black text-black px-6 py-3 rounded-xl font-semibold shadow-md hover:from-orange-600 hover:to-red-600 transition duration-300 flex items-center justify-center w-full">
                     <FaGoogle className="mr-2" />
                     Login with Google
                 </button>

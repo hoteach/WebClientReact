@@ -23,8 +23,11 @@ export default function ActivationPage() {
                             Accept: 'application/json'
                         }
                     })
-                    .then((res) => {
+                    .then( async(res) => {
                         setProfile(res.data);
+                        const queryParams = window.location.href;
+                        const paymentIntentId = queryParams.match(/\?(.+)/);
+                        await activateAccount(res.data.email, paymentIntentId[1]);
                     })
                     .catch((err) => console.log(err));
             }
@@ -35,11 +38,8 @@ export default function ActivationPage() {
     const loginGoogle = useGoogleLogin({
         onSuccess: async(codeResponse) => {
             setUser(codeResponse);
-
-            const queryParams = window.location.href;
-            const paymentIntentId = queryParams.match(/\?(.+)/);
-            console.log(profile.id);
-            //await activateAccount(profile.id, paymentIntentId[1]);
+            login();
+            navigate("/dashboard");
         },
         onError: (error) => console.log('Login Failed:', error)
     });

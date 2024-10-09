@@ -29,7 +29,7 @@ const CheckoutButton = () => {
   };
 
   return (
-    <button onClick={handleCheckout} className="checkout-button">
+    <button onClick={handleCheckout} className="bg-maincol border-2 border-black text-black px-6 py-3 rounded-xl font-semibold shadow-md hover:from-orange-600 hover:to-red-600 transition duration-300 flex items-center justify-center w-full">
       Buy Now
     </button>
   );

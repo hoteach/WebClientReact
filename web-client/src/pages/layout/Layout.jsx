@@ -3,9 +3,13 @@ import { FaGoogle, FaFire, FaRocket, FaHome, FaUser, FaCog, FaSignOutAlt, FaBell
 import logo from '../../assets/logos/Ho.png';
 import { useNavigate } from "react-router-dom";
 import { googleLogout } from "@react-oauth/google";
+import React, { useState } from 'react';
+import { useAuth } from '../contextAndRoute/AuthContext';
 
 export default function Layout() {
   const navigate = useNavigate();
+  const [ profile, setProfile ] = useState([]);
+  const { logout } = useAuth();
 
 
   function handleDashboard() {
@@ -25,6 +29,10 @@ export default function Layout() {
     navigate(`steps`);
   }
   function logoutFunc() {
+    googleLogout();
+    setProfile(null);
+    logout();
+    navigate("/");
   }
 
   return (
