@@ -15,6 +15,7 @@ export default function Login() {
     useEffect(
         () => {
             if (user) {
+                console.log(user);
                 axios
                     .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
                         headers: {
@@ -23,8 +24,9 @@ export default function Login() {
                         }
                     })
                     .then(async (res) => {
+                        console.log(res.data);
                         setProfile(res.data);
-
+                        localStorage.setItem('userProfile', JSON.stringify(res.data));
                         return axios.post('https://hoteachapi.azurewebsites.net/api/GetUserData', { googleId: res.data.email });
                     })
                     .then(apiResponse => {
@@ -55,7 +57,9 @@ export default function Login() {
 
     const loginGoogle = useGoogleLogin({
         onSuccess: async (codeResponse) => {
+            console.log(codeResponse);
             setUser(codeResponse);
+            console.log(user);
         },
         onError: (error) => console.log('Login Failed:', error)
     });

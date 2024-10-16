@@ -27,6 +27,7 @@ export default function ActivationPage() {
                         setProfile(res.data);
                         const queryParams = window.location.href;
                         const paymentIntentId = queryParams.match(/\?(.+)/);
+                        localStorage.setItem('userProfile', JSON.stringify(res.data));
                         await activateAccount(res.data.email, paymentIntentId[1]);
                     })
                     .catch((err) => console.log(err));
@@ -37,9 +38,8 @@ export default function ActivationPage() {
 
     const loginGoogle = useGoogleLogin({
         onSuccess: async(codeResponse) => {
+            console.log(codeResponse);
             setUser(codeResponse);
-            login();
-            navigate("/dashboard");
         },
         onError: (error) => console.log('Login Failed:', error)
     });
@@ -56,6 +56,7 @@ export default function ActivationPage() {
             
             const result = await response.json();
             login();
+            navigate("/dashboard");
             console.log('Activation result:', result);
         } catch (error) {
             console.error('Error activating account:', error);

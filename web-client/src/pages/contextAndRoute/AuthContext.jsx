@@ -24,6 +24,7 @@ export function AuthProvider({ children }) {
     const logout = () => {
         setIsAuthenticated(false);
         setIsActivated(false); // Reset activation status on logout
+        localStorage.removeItem('userProfile');
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('isActivated'); // Remove activation status from localStorage
     };

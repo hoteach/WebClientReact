@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { googleLogout } from "@react-oauth/google";
 import React, { useState } from 'react';
 import { useAuth } from '../contextAndRoute/AuthContext';
+import { useEffect } from "react";
 
 export default function Layout() {
   const navigate = useNavigate();
   const [ profile, setProfile ] = useState([]);
   const { logout } = useAuth();
-
+  const userProfile = JSON.parse(localStorage.getItem('userProfile'));
 
   function handleDashboard() {
     console.log(`dashboard`);
@@ -80,7 +81,7 @@ export default function Layout() {
                     <FaBell className="text-gray-600 hover:text-maincol cursor-pointer text-xl transition-colors duration-200" />
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
                 </div>
-                <img src="https://via.placeholder.com/40" alt="Profile" className="w-10 h-10 rounded-full ring-2 ring-maincol" />
+                <img src={userProfile.picture} alt="Profile" className="w-10 h-10 rounded-full ring-2 ring-maincol"/>
             </div>
         </header>
         <main className="pt-20 h-full"> {/* Add padding-top to account for fixed header */}
